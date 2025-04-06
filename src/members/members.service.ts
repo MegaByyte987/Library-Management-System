@@ -27,8 +27,6 @@ export class MembersService {
       throw new BadRequestException('This member is already registered');
     }
 
-    createMemberDto.password = await hash(createMemberDto.password,10); //hashes the password 10 times
-
     return this.prisma.member.create({
       data: createMemberDto,
     });
@@ -67,9 +65,6 @@ export class MembersService {
       if(member && member.id!=id){
         throw new BadRequestException('This mobile is already registered')
       }
-    }
-    if(updateMemberDto.password){
-        updateMemberDto.password = await hash(updateMemberDto.password,10);
     }
 
     return this.prisma.member.update({
