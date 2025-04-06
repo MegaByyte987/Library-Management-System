@@ -32,13 +32,11 @@ export class AuthController {
     return this.authService.loginMember(loginMemberDto);
   }
 
-  @Public()
   @Post('registerBook')
   registerBook(@Body() registerBookDto: RegisterBookDto){
     return this.authService.registerBook(registerBookDto);
   }
 
-  @Public()
   @Post('registerTransaction')
   registerTransaction(@Body() registerTransactionDto: RegisterTransactionDto){
     return this.authService.registerTransaction(registerTransactionDto);

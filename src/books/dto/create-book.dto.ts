@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
 
 export class CreateBookDto {
     @IsString()
@@ -16,4 +16,7 @@ export class CreateBookDto {
 
     @IsBoolean()
     availability:boolean;
+
+    @IsNumber()
+    user_id: any;
 }

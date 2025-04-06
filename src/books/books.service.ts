@@ -13,11 +13,11 @@ export class BooksService {
     });
   }
 
-  async findAll(){
+  async findAll(user_id: number){
     return this.prisma.book.findMany();
   }
 
-  async findOne(id: number){
+  async findOne(id: number, user_id: number){
     const book = await this.prisma.book.findUnique({
       where: {id},
     });
@@ -30,17 +30,17 @@ export class BooksService {
   }
 
   async update(id: number, updateBookDto:UpdateBookDto){
-    const book = await this.findOne(id);
+    const book = await this.findOne(id, updateBookDto.user_id as number);
     return this.prisma.book.update({
-      where: {id},
+      where: {id, user_id: updateBookDto.user_id},
       data: updateBookDto,
     });
   }
 
-  async remove(id: number){
-    await this.findOne(id);
+  async remove(id: number, user_id: number){
+    await this.findOne(id, user_id);
     return this.prisma.book.delete({
-      where: {id}
+      where: {id, user_id}
     });
   }
 

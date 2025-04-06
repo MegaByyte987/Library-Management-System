@@ -34,11 +34,11 @@ export class MembersService {
     });
   }
 
-  async findAll() {
+  async findAll(user_id: number) {
     return this.prisma.member.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user_id: number) {
     const member = await this.prisma.member.findUnique({
       where: { id },
     });
@@ -50,7 +50,7 @@ export class MembersService {
 
   async update(id: number, updateMemberDto: UpdateMemberDto) {
     let member: Member | null;
-    await this.findOne(id);
+    await this.findOne(id, updateMemberDto.user_id as number);
 
     if(updateMemberDto.email){
       member = await this.prisma.member.findUnique({
@@ -73,15 +73,15 @@ export class MembersService {
     }
 
     return this.prisma.member.update({
-      where: { id },
+      where: { id , user_id: updateMemberDto.user_id},
       data: updateMemberDto,
     });
   }
 
-  async remove(id: number) {
-    await this.findOne(id); 
+  async remove(id: number, user_id: number) {
+    await this.findOne(id, user_id); 
     return this.prisma.member.delete({
-      where: { id },
+      where: { id, user_id },
     });
   }
 }
