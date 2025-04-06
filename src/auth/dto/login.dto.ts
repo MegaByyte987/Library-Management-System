@@ -9,13 +9,3 @@ export class LoginUserDto {
     @IsString()
     password: string;
 }
-
-export class LoginMemberDto {
-    @IsNotEmpty()
-    @IsString()
-    username: string;
-
-    @IsNotEmpty()
-    @IsString()
-    password: string;
-}
