@@ -18,5 +18,5 @@ export class CreateBookDto {
     availability:boolean;
 
     @IsNumber()
-    user_id: any;
+    user_id: number;
 }
