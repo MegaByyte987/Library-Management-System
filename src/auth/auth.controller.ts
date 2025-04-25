@@ -1,6 +1,11 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterBookDto, RegisterMemberDto, RegisterTransactionDto, RegisterUserDto } from './dto/register.dto';
+import {
+  RegisterBookDto,
+  RegisterMemberDto,
+  RegisterTransactionDto,
+  RegisterUserDto,
+} from './dto/register.dto';
 import { LoginUserDto } from './dto/login.dto';
 import { Public } from 'src/helpers/public';
 
@@ -10,29 +15,29 @@ export class AuthController {
 
   @Public()
   @Post('registerUser')
-  registerUser(@Body() registerDto: RegisterUserDto){
+  registerUser(@Body() registerDto: RegisterUserDto) {
     return this.authService.registerUser(registerDto);
   }
 
   @Public()
   @Post('registerMember')
-  registerMember(@Body() registerDto: RegisterMemberDto){
+  registerMember(@Body() registerDto: RegisterMemberDto) {
     return this.authService.registerMember(registerDto);
   }
 
   @Public()
   @Post('loginUser')
-  loginUser(@Body() loginUserDto: LoginUserDto){
+  loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.loginUser(loginUserDto);
   }
 
   @Post('registerBook')
-  registerBook(@Body() registerBookDto: RegisterBookDto){
+  registerBook(@Body() registerBookDto: RegisterBookDto) {
     return this.authService.registerBook(registerBookDto);
   }
 
   @Post('registerTransaction')
-  registerTransaction(@Body() registerTransactionDto: RegisterTransactionDto){
+  registerTransaction(@Body() registerTransactionDto: RegisterTransactionDto) {
     return this.authService.registerTransaction(registerTransactionDto);
   }
 }

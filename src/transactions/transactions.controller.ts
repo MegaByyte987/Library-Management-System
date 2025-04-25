@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+} from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Payload } from 'src/interfaces/payload';
@@ -8,7 +17,10 @@ export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
   @Post()
-  create(@Body() createTransactionDto: CreateTransactionDto, @Req() req: Payload) {
+  create(
+    @Body() createTransactionDto: CreateTransactionDto,
+    @Req() req: Payload,
+  ) {
     createTransactionDto.user_id = req.payload.user_id;
     return this.transactionsService.create(createTransactionDto);
   }

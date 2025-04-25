@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaClient, Member } from '@prisma/client';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
@@ -8,21 +12,21 @@ export class MembersService {
   constructor(private readonly prisma: PrismaClient) {}
 
   async create(createMemberDto: CreateMemberDto) {
-    let member=await this.prisma.member.findUnique({
+    let member = await this.prisma.member.findUnique({
       where: {
         email: createMemberDto.email,
       },
     });
-    if(member){
+    if (member) {
       throw new BadRequestException('This member is already registered');
     }
 
-    member =await this.prisma.member.findUnique({
+    member = await this.prisma.member.findUnique({
       where: {
         mobile: createMemberDto.mobile,
       },
     });
-    if(member){
+    if (member) {
       throw new BadRequestException('This member is already registered');
     }
 
@@ -49,31 +53,31 @@ export class MembersService {
     let member: Member | null;
     await this.findOne(id, updateMemberDto.user_id as number);
 
-    if(updateMemberDto.email){
+    if (updateMemberDto.email) {
       member = await this.prisma.member.findUnique({
-        where: {email: updateMemberDto.email},
+        where: { email: updateMemberDto.email },
       });
-      if(member && member.id!=id){
-        throw new BadRequestException('This member is already registered')
+      if (member && member.id != id) {
+        throw new BadRequestException('This member is already registered');
       }
     }
-    if(updateMemberDto.mobile){
+    if (updateMemberDto.mobile) {
       member = await this.prisma.member.findUnique({
-        where: {mobile: updateMemberDto.mobile},
+        where: { mobile: updateMemberDto.mobile },
       });
-      if(member && member.id!=id){
-        throw new BadRequestException('This mobile is already registered')
+      if (member && member.id != id) {
+        throw new BadRequestException('This mobile is already registered');
       }
     }
 
     return this.prisma.member.update({
-      where: { id , user_id: updateMemberDto.user_id},
+      where: { id, user_id: updateMemberDto.user_id },
       data: updateMemberDto,
     });
   }
 
   async remove(id: number, user_id: number) {
-    await this.findOne(id, user_id); 
+    await this.findOne(id, user_id);
     return this.prisma.member.delete({
       where: { id, user_id },
     });
